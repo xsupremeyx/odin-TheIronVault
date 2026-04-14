@@ -38,6 +38,11 @@ async function createTables(client){
 }
 
 async function seedData(client){
+    console.log("Clearing existing data...");
+    await client.query(`
+        TRUNCATE item_categories, items, categories
+        RESTART IDENTITY CASCADE;
+    `);
     console.log("Seeding data...");
     const categorySQL = `
         INSERT INTO categories ( name, description, image_url )
@@ -80,6 +85,7 @@ async function seedData(client){
 
     const junctions = [
         { item: 'Longsword of Flame', category: 'Melee' },
+        { item: 'Longsword of Flame', category: 'Magic' },
         { item: 'Iron Shield', category: 'Armor' },
         { item: 'Health Potion', category: 'Consumables' },
         { item: 'Elven Longbow', category: 'Ranged' },
