@@ -29,6 +29,12 @@ const itemController = require("../controllers/itemController");
 itemRouter.get("/", itemController.listItems);
 itemRouter.get("/new", itemController.getNewItemForm);
 itemRouter.post("/", validateItem, itemController.createItem);
+
+itemRouter.get("/:id/edit", itemController.getEditItemForm);
+itemRouter.post("/:id/edit", validateItem, itemController.updateItem);
+
+itemRouter.post("/:id/delete", itemController.deleteItem);
+
 itemRouter.get("/:id", itemController.getItemDetail);
 
 module.exports = itemRouter;

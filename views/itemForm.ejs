@@ -1,11 +1,11 @@
 <%- include("partials/header", { title: title }) %>
 
 <div class="page-container">
-    <h1>New Item</h1>
+    <h1><%= values.id ? "Edit Item" : "New Item" %></h1>
 
     <%- include("partials/error", { errors: errors || [] }) %>
 
-    <form action="/items" method="POST" class="form-card">
+    <form action="<%= values.id ? `/items/${values.id}/edit` : '/items' %>" method="POST" class="form-card">
 
         <div class="form-group">
             <label>Name</label>
@@ -44,9 +44,9 @@
             <div class="checkbox-group">
                 <% categories.forEach(cat => { %>
                     <label class="checkbox-item">
-                        <input 
-                            type="checkbox" 
-                            name="categories" 
+                        <input
+                            type="checkbox"
+                            name="categories"
                             value="<%= cat.id %>"
                             <%= (values.categories || []).includes(String(cat.id)) ? "checked" : "" %>
                         >
@@ -56,7 +56,16 @@
             </div>
         </div>
 
-        <button type="submit">Create Item</button>
+        <% if (values.id) { %>
+            <div class="form-group">
+                <label>Admin Password</label>
+                <input type="password" name="admin_password" required>
+            </div>
+        <% } %>
+
+        <button type="submit">
+            <%= values.id ? "Update Item" : "Create Item" %>
+        </button>
     </form>
 
     <a href="/items">← Back</a>

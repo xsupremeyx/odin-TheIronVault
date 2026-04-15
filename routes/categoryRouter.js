@@ -25,6 +25,12 @@ const categoryController = require("../controllers/categoryController");
 
 categoryRouter.get("/new", categoryController.getNewCategoryForm);
 categoryRouter.post("/", validateCategory, categoryController.createCategory);
+
+categoryRouter.get("/:id/edit", categoryController.getEditCategoryForm);
+categoryRouter.post("/:id/edit", validateCategory, categoryController.updateCategory);
+
+categoryRouter.post("/:id/delete", categoryController.deleteCategory);
+
 categoryRouter.get("/:id", categoryController.getCategoryDetail);
 
 module.exports = categoryRouter;

@@ -31,6 +31,24 @@
         <p>No items in this category yet.</p>
     <% } %>
 
+    <a href="/categories/<%= category.id %>/edit">
+        Edit Category
+    </a>
+
+    <%- include("partials/error", { errors: errors || [] }) %>
+
+    <form action="/categories/<%= category.id %>/delete" method="POST">
+        <div class="form-group">
+            <label>Admin Password</label>
+            <input type="password" name="admin_password" required>
+        </div>
+
+        <button type="submit" onclick="return confirm('Delete this category?')">
+            Delete Category
+        </button>
+
+    </form>
+
     <a href="/">← Back to Categories</a>
 </div>
 

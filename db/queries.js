@@ -125,6 +125,82 @@ async function addItemCategory(item_id, category_id){
     return;
 }
 
+async function updateCategory(id, name, description, image_url){
+    const SQL = `
+        UPDATE categories
+         SET name=$1, description=$2, image_url=$3
+         WHERE id=$4;
+    `
+    await pool.query(SQL, [name, description, image_url, id]);
+    return;
+}
+
+async function deleteCategory(id) {
+    const check = await pool.query(
+        `SELECT 1 FROM item_categories WHERE category_id=$1 LIMIT 1`,
+        [id]
+    );
+
+    if (check.rows.length > 0) {
+        throw new Error("Cannot delete category with linked items");
+    }
+
+    await pool.query(`DELETE FROM categories WHERE id=$1`, [id]);
+    return;
+}
+
+async function getItemCategoryIds(id) {
+    const SQL = `
+        SELECT category_id
+        FROM item_categories
+        WHERE item_id = $1
+        ORDER BY category_id;
+    `;
+    const result = await pool.query(SQL, [id]);
+    return result.rows.map(row => row.category_id);
+}
+
+async function updateItem(id, name, description, price, quantity, rarity) {
+    const SQL = `
+        UPDATE items
+        SET name = $1, description = $2, price = $3, quantity = $4, rarity = $5
+        WHERE id = $6;
+    `;
+    await pool.query(SQL, [name, description, price, quantity, rarity, id]);
+}
+
+async function updateItemCategories(itemId, categoryIds) {
+    const client = await pool.connect();
+
+    try {
+        await client.query("BEGIN");
+
+        await client.query(
+            `DELETE FROM item_categories WHERE item_id = $1`,
+            [itemId]
+        );
+
+        for (const categoryId of categoryIds) {
+            await client.query(
+                `INSERT INTO item_categories (item_id, category_id)
+                 VALUES ($1, $2)`,
+                [itemId, categoryId]
+            );
+        }
+
+        await client.query("COMMIT");
+    } catch (err) {
+        await client.query("ROLLBACK");
+        throw err;
+    } finally {
+        client.release();
+    }
+}
+
+async function deleteItem(id) {
+    await pool.query(`DELETE FROM items WHERE id = $1`, [id]);
+}
+
 module.exports = {
     getAllCategories,
     getCategoryById,
@@ -136,4 +212,14 @@ module.exports = {
     createItem,
     addItemCategory,
 
+    // update
+    updateCategory,
+
+    // delete
+    deleteCategory,
+
+    getItemCategoryIds,
+    updateItem,
+    updateItemCategories,
+    deleteItem,
 }

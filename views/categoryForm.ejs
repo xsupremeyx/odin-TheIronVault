@@ -1,11 +1,11 @@
 <%- include("partials/header", { title: title }) %>
 
 <div class="page-container">
-    <h1>New Category</h1>
+    <h1><%= values.id ? "Edit Category" : "New Category" %></h1>
 
     <%- include("partials/error", {errors: errors || []}) %>
 
-    <form action="/categories" method="POST" class="form-card">
+    <form action="<%= values.id ? `/categories/${values.id}/edit` : '/categories' %>" method="POST">
 
         <div class="form-group">
             <label for="name">Category Name</label>
@@ -65,8 +65,17 @@
             </select>
         </div>
 
+        <% if (values.id) { %>
+            <div class="form-group">
+                <label>Admin Password</label>
+                <input type="password" name="admin_password" required>
+            </div>
+        <% } %>
+
         <div class="form-actions">
-            <button type="submit">Create Category</button>
+            <button type="submit">
+                <%= values.id ? "Update Category" : "Create Category" %>
+            </button>
         </div>
 
     </form>

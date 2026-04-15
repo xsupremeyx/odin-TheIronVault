@@ -3,8 +3,9 @@
 <div class="page-container">
     <h1><%= item.name %></h1>
 
-    <div class="item-detail">
+    <%- include("partials/error", { errors: errors || [] }) %>
 
+    <div class="item-detail">
         <% if (item.description) { %>
             <p><strong>Description:</strong> <%= item.description %></p>
         <% } %>
@@ -16,12 +17,8 @@
         <% if (item.rarity) { %>
             <p><strong>Rarity:</strong> <%= item.rarity %></p>
         <% } %>
-
-        <% if (item.created_at) { %>
-            <p><strong>Created:</strong> <%= new Date(item.created_at).toLocaleString() %></p>
-        <% } %>
-
     </div>
+
     <% if (item.categories && item.categories.length > 0) { %>
         <h2>Categories</h2>
         <ul class="category-list">
@@ -30,6 +27,19 @@
             <% }) %>
         </ul>
     <% } %>
+
+    <a href="/items/<%= item.id %>/edit">Edit Item</a>
+
+    <form action="/items/<%= item.id %>/delete" method="POST">
+        <div class="form-group">
+            <label>Admin Password</label>
+            <input type="password" name="admin_password" required>
+        </div>
+
+        <button type="submit" onclick="return confirm('Delete this item?')">
+            Delete Item
+        </button>
+    </form>
 
     <a href="/items">← Back to Items</a>
 </div>
