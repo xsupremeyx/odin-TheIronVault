@@ -21,21 +21,23 @@
             <ul class="item-list grid grid--items">
                 <% items.forEach(item => { %>
                     <li class="item-card card card--item">
-                        <div class="card__content">
-                            <h3 class="card__title"><%= item.name %></h3>
+                        <a href="/items/<%= item.id %>">
+                            <div class="card__content">
+                                <h3 class="card__title"><%= item.name %></h3>
 
-                            <% if (item.description) { %>
-                                <p class="card__text"><%= item.description %></p>
-                            <% } %>
+                                <% if (item.description) { %>
+                                    <p class="card__text"><%= item.description %></p>
+                                <% } %>
 
-                            <% if (item.price != undefined) { %>
-                                <p class="card__meta"><strong>Price:</strong> <%= item.price %> 🪙</p>
-                            <% } %>
+                                <% if (item.price != undefined) { %>
+                                    <p class="card__meta"><strong>Price:</strong> <%= item.price %> 🪙</p>
+                                <% } %>
 
-                            <% if (item.rarity) { %>
-                                <p class="card__meta"><strong>Rarity:</strong> <%= item.rarity %></p>
-                            <% } %>
-                        </div>
+                                <% if (item.rarity) { %>
+                                    <p class="card__meta"><strong>Rarity:</strong> <%= item.rarity %></p>
+                                <% } %>
+                            </div>
+                        </a>
                     </li>
                 <% }) %>
             </ul>
