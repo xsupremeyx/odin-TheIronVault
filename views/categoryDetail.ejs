@@ -1,0 +1,37 @@
+<%- include("partials/header", { title: title }) %>
+
+<div class="page-container">
+    <h1><%= category.name %></h1>
+
+    <% if (category.description) { %>
+        <p><%= category.description %></p>
+    <% } %>
+
+    <hr>
+
+    <h2>Items in this category</h2>
+
+    <% if (items.length > 0) { %>
+        <ul class="item-list">
+            <% items.forEach(item => { %>
+                <li class="item-card">
+                    <h3><%= item.name %></h3>
+
+                    <% if (item.description) { %>
+                        <p><%= item.description %></p>
+                    <% } %>
+
+                    <% if (item.price) { %>
+                        <p><strong>Price:</strong> <%= item.price %> Gold Coins</p>
+                    <% } %>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No items in this category yet.</p>
+    <% } %>
+
+    <a href="/">← Back to Categories</a>
+</div>
+
+<%- include("partials/footer") %>

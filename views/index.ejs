@@ -1,9 +1,18 @@
-<html>
-    <head>
-        <title>Homepage</title>
-        <link rel="stylesheet" href="/styles.css">
-    </head>
-    <body>
-        <h1>Hello</h1>
-    </body>
-</html>
+<%- include("partials/header", {title: title}) %>
+<div class="page-container">
+        <h1><%= title %></h1>
+        <div class="category-board">
+            <ul>
+                <% categories.forEach(row => { %>
+                    <li>
+                        <a href="/categories/<%= row.id %>" class="category-link">
+                        <p>Category: <%= row.name %></p>
+                        <p>Description: <%= row.description %></p>
+                        <p>No. of Items: <%= row.item_count %></p>
+                        </a>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+</div>
+<%- include("partials/footer") %>
