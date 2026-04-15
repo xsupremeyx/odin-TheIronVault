@@ -16,7 +16,10 @@
             <% } %>
 
             <% if (item.rarity) { %>
-                <p><strong>Rarity:</strong> <%= item.rarity %></p>
+                <p class="rarity-row">
+                    <strong>Rarity:</strong>
+                    <span class="rarity-badge rarity-badge--<%= item.rarity.toLowerCase() %>"><%= item.rarity %></span>
+                </p>
             <% } %>
         </div>
 
