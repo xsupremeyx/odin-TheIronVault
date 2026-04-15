@@ -3,7 +3,7 @@ const db = require("../db/queries");
 async function listCategories(req, res, next){
     try{
         const categoriesArr = await db.getAllCategories();
-        res.render("index", { title: "TheIronVault", categories: categoriesArr });
+        res.render("index", { title: "The Iron Vault", categories: categoriesArr });
     }
     catch(err){
         next(err);
@@ -12,7 +12,12 @@ async function listCategories(req, res, next){
 
 async function getCategoryDetail(req, res, next){
     try{
-        const categoryId = req.params.id;
+        const categoryId = parseInt(req.params.id,10);
+        if (isNaN(categoryId)) {
+            const err = new Error("Bad Request: Invalid Category ID");
+            err.status = 400;
+            return next(err);
+        }
         // null case
         const categoryData = await db.getCategoryById(categoryId);
         if(!categoryData){

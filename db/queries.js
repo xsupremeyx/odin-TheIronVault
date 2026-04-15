@@ -97,9 +97,22 @@ async function getItemById(id) {
     return result.rows[0];
 }
 
+async function createCategory(name, description, image_url){
+    const SQL = `
+        INSERT INTO categories (name, description, image_url)
+        VALUES ($1, $2, $3);
+    `
+    await pool.query(SQL, [name, description, image_url]);
+    return;
+}
+
 module.exports = {
     getAllCategories,
     getCategoryById,
     getAllItems,
     getItemById,
+
+    // post
+    createCategory,
+    
 }

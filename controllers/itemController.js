@@ -14,7 +14,12 @@ async function listItems(req, res, next){
 
 async function getItemDetail(req,res,next){
     try{
-        const itemId = req.params.id;
+        const itemId = parseInt(req.params.id,10);
+        if (isNaN(itemId)) {
+            const err = new Error("Bad Request: Invalid Item ID");
+            err.status = 400;
+            return next(err);
+        }
         // null case
         const itemData = await db.getItemById(itemId);
         if(!itemData){
