@@ -16,12 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 // import routes
 const indexRouter = require("./routes/indexRouter");
 const categoryRouter = require("./routes/categoryRouter");
-// const itemRouter = require("./routes/itemRouter");
+const itemRouter = require("./routes/itemRouter");
 
 // use routes
 app.use("/", indexRouter);
 app.use("/categories", categoryRouter);
-// app.use("/items", itemRouter);
+app.use("/items", itemRouter);
 
 // 404 handler
 app.use((req, res, next) => {

@@ -6,6 +6,7 @@ const categoryController = require("../controllers/categoryController");
 
 // define routes
 
+// categoryRouter.get("/new", )
 categoryRouter.get("/:id", categoryController.getCategoryDetail);
 
 module.exports = categoryRouter;

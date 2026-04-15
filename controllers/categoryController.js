@@ -20,7 +20,7 @@ async function getCategoryDetail(req, res, next){
             err.status = 404;
             throw err;
         }
-        res.render("categoryDetail", { title: categoryData.category.name, category: categoryData.category, items: categoryData.items });
+        res.render("categoryDetail", { title: "The Iron vault", category: categoryData.category, items: categoryData.items });
     }
     catch(err){
         next(err);

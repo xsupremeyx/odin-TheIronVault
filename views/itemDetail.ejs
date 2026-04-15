@@ -1,0 +1,37 @@
+<%- include("partials/header", { title: title }) %>
+
+<div class="page-container">
+    <h1><%= item.name %></h1>
+
+    <div class="item-detail">
+
+        <% if (item.description) { %>
+            <p><strong>Description:</strong> <%= item.description %></p>
+        <% } %>
+
+        <% if (item.price != undefined) { %>
+            <p><strong>Price:</strong> <%= item.price %>🪙</p>
+        <% } %>
+
+        <% if (item.rarity) { %>
+            <p><strong>Rarity:</strong> <%= item.rarity %></p>
+        <% } %>
+
+        <% if (item.created_at) { %>
+            <p><strong>Created:</strong> <%= new Date(item.created_at).toLocaleString() %></p>
+        <% } %>
+
+    </div>
+    <% if (item.categories && item.categories.length > 0) { %>
+        <h2>Categories</h2>
+        <ul class="category-list">
+            <% item.categories.forEach(cat => { %>
+                <li><%= cat %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <a href="/items">← Back to Items</a>
+</div>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,66 @@
+<%- include("partials/header", { title: title }) %>
+
+<div class="page-container">
+    <h1><%= title %></h1>
+
+    <form method="GET" action="/items" class="filter-form">
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Search items..."
+            value="<%= search || '' %>"
+        >
+
+        <select name="rarity">
+            <option value="">All Rarity</option>
+            <option value="Common" <%= rarity === "Common" ? "selected" : "" %>>Common</option>
+            <option value="Uncommon" <%= rarity === "Uncommon" ? "selected" : "" %>>Uncommon</option>
+            <option value="Rare" <%= rarity === "Rare" ? "selected" : "" %>>Rare</option>
+            <option value="Epic" <%= rarity === "Epic" ? "selected" : "" %>>Epic</option>
+            <option value="Legendary" <%= rarity === "Legendary" ? "selected" : "" %>>Legendary</option>
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <div class="items-board">
+        <% if (items.length > 0) { %>
+            <ul class="item-list">
+                <% items.forEach(item => { %>
+                    <li class="item-card">
+                        <a href="/items/<%= item.id %>" class="item-link">
+
+                            <h3><%= item.name %></h3>
+
+                            <% if (item.description) { %>
+                                <p><%= item.description %></p>
+                            <% } %>
+
+                            <% if (item.price !== undefined) { %>
+                                <p><strong>Price:</strong> <%= item.price %>🪙</p>
+                            <% } %>
+
+                            <% if (item.rarity) { %>
+                                <p><strong>Rarity:</strong> <%= item.rarity %></p>
+                            <% } %>
+
+                            <% if (item.categories && item.categories.length > 0) { %>
+                                <p>
+                                    <strong>Categories:</strong>
+                                    <% item.categories.forEach((cat, i) => { %>
+                                        <%= cat %><%= i < item.categories.length - 1 ? ", " : "" %>
+                                    <% }) %>
+                                </p>
+                            <% } %>
+
+                        </a>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No items found.</p>
+        <% } %>
+    </div>
+</div>
+
+<%- include("partials/footer") %>
