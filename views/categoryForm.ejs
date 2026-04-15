@@ -1,0 +1,77 @@
+<%- include("partials/header", { title: title }) %>
+
+<div class="page-container">
+    <h1>New Category</h1>
+
+    <%- include("partials/error", {errors: errors || []}) %>
+
+    <form action="/categories" method="POST" class="form-card">
+
+        <div class="form-group">
+            <label for="name">Category Name</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                value="<%= values.name %>" 
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea 
+                id="description" 
+                name="description" 
+                rows="4" 
+                required
+            ><%= values.description %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image_url">Select Image</label>
+            <select id="image_url" name="image_url" required>
+                <option value="">-- Select an image --</option>
+
+                <option value="/images/melee.jpg"
+                    <%= values.image_url === "/images/melee.jpg" ? "selected" : "" %>>
+                    Melee
+                </option>
+
+                <option value="/images/magic.jpg"
+                    <%= values.image_url === "/images/magic.jpg" ? "selected" : "" %>>
+                    Magic
+                </option>
+
+                <option value="/images/armor.jpg"
+                    <%= values.image_url === "/images/armor.jpg" ? "selected" : "" %>>
+                    Armor
+                </option>
+
+                <option value="/images/consumable.jpg"
+                    <%= values.image_url === "/images/consumables.jpg" ? "selected" : "" %>>
+                    Consumables
+                </option>
+
+                <option value="/images/ranged.jpg"
+                    <%= values.image_url === "/images/ranged.jpg" ? "selected" : "" %>>
+                    Ranged
+                </option>
+
+                <option value="/images/misc.jpg"
+                    <%= values.image_url === "/images/misc.jpg" ? "selected" : "" %>>
+                    Misc
+                </option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit">Create Category</button>
+        </div>
+
+    </form>
+
+    <a href="/">← Back</a>
+</div>
+
+<%- include("partials/footer") %>
