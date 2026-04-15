@@ -1,0 +1,65 @@
+<%- include("partials/header", { title: title }) %>
+
+<div class="page-container">
+    <h1>New Item</h1>
+
+    <%- include("partials/error", { errors: errors || [] }) %>
+
+    <form action="/items" method="POST" class="form-card">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" value="<%= values.name %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" required><%= values.description %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" name="price" value="<%= values.price %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" name="quantity" value="<%= values.quantity %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Rarity</label>
+            <select name="rarity" required>
+                <option value="">-- Select --</option>
+                <option value="Common" <%= values.rarity === "Common" ? "selected" : "" %>>Common</option>
+                <option value="Uncommon" <%= values.rarity === "Uncommon" ? "selected" : "" %>>Uncommon</option>
+                <option value="Rare" <%= values.rarity === "Rare" ? "selected" : "" %>>Rare</option>
+                <option value="Epic" <%= values.rarity === "Epic" ? "selected" : "" %>>Epic</option>
+                <option value="Legendary" <%= values.rarity === "Legendary" ? "selected" : "" %>>Legendary</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Categories</label>
+            <div class="checkbox-group">
+                <% categories.forEach(cat => { %>
+                    <label class="checkbox-item">
+                        <input 
+                            type="checkbox" 
+                            name="categories" 
+                            value="<%= cat.id %>"
+                            <%= (values.categories || []).includes(String(cat.id)) ? "checked" : "" %>
+                        >
+                        <span><%= cat.name %></span>
+                    </label>
+                <% }) %>
+            </div>
+        </div>
+
+        <button type="submit">Create Item</button>
+    </form>
+
+    <a href="/items">← Back</a>
+</div>
+
+<%- include("partials/footer") %>

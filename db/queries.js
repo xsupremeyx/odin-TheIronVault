@@ -106,6 +106,25 @@ async function createCategory(name, description, image_url){
     return;
 }
 
+async function createItem(name,description,price,quantity,rarity){
+    const SQL = `
+        INSERT INTO items (name, description, price, quantity, rarity)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING id;
+    `;
+    const result = await pool.query(SQL, [name, description, price, quantity, rarity]);
+    return result.rows[0].id;
+}
+
+async function addItemCategory(item_id, category_id){
+    const SQL = `
+        INSERT INTO item_categories (item_id, category_id)
+         VALUES ($1, $2)
+    `;
+    await pool.query(SQL, [item_id, category_id]);
+    return;
+}
+
 module.exports = {
     getAllCategories,
     getCategoryById,
@@ -114,5 +133,7 @@ module.exports = {
 
     // post
     createCategory,
-    
+    createItem,
+    addItemCategory,
+
 }
