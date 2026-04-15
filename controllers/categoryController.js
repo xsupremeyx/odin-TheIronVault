@@ -3,7 +3,7 @@ const db = require("../db/queries");
 async function listCategories(req, res, next){
     try{
         const categoriesArr = await db.getAllCategories();
-        res.render("index", { title: "The Iron Vault", categories: categoriesArr });
+        res.render("categories", { title: "The Iron Vault", categories: categoriesArr });
     }
     catch(err){
         next(err);
@@ -25,7 +25,7 @@ async function getCategoryDetail(req, res, next){
             err.status = 404;
             throw err;
         }
-        res.render("categoryDetail", { title: "The Iron vault", category: categoryData.category, items: categoryData.items, errors: [] });
+        res.render("categoryDetail", { title: "The Iron Vault", category: categoryData.category, items: categoryData.items, errors: [] });
     }
     catch(err){
         next(err);
@@ -62,7 +62,7 @@ async function createCategory(req,res,next){
         }
         const { name, description, image_url } = req.body;
         await db.createCategory(name, description, image_url);
-        res.redirect("/");
+        res.redirect("/categories");
     }
     catch(err){
         next(err);
@@ -162,7 +162,7 @@ async function deleteCategory(req, res, next) {
 
         await db.deleteCategory(id);
 
-        res.redirect("/");
+        res.redirect("/categories");
     } catch (err) {
         if (err.message && err.message.includes("linked items")) {
             return res.render("categoryDetail", {

@@ -1,0 +1,37 @@
+<%- include("partials/header", {title: title}) %>
+    <div class="page">
+        <div class="container">
+
+            <h1 class="page__title"><%= title %></h1>
+
+            <div class="grid grid--categories">
+                <ul class="grid__list">
+                    <% categories.forEach(row => { %>
+                        <li class="grid__item">
+                            <a href="/categories/<%= row.id %>" class="card card--category">
+
+                                <div class="card__media">
+                                    <img class="card__icon" src="<%= row.image_url %>" alt="<%= row.name %>">
+                                </div>
+
+                                <div class="card__content">
+                                    <h3 class="card__title"><%= row.name %></h3>
+
+                                    <p class="card__description">
+                                        <%= row.description %>
+                                    </p>
+
+                                    <p class="card__meta">
+                                        <%= row.item_count %> items
+                                    </p>
+                                </div>
+
+                            </a>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+<%- include("partials/footer") %>

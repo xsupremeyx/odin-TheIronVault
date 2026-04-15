@@ -1,86 +1,66 @@
 <%- include("partials/header", { title: title }) %>
 
-<div class="page-container">
-    <h1><%= values.id ? "Edit Category" : "New Category" %></h1>
+<div class="page">
+    <div class="container">
+        <h1 class="page__title"><%= values.id ? "Edit Category" : "New Category" %></h1>
 
-    <%- include("partials/error", {errors: errors || []}) %>
+        <%- include("partials/error", {errors: errors || []}) %>
 
-    <form action="<%= values.id ? `/categories/${values.id}/edit` : '/categories' %>" method="POST">
+        <form action="<%= values.id ? `/categories/${values.id}/edit` : '/categories' %>" method="POST" class="form">
 
-        <div class="form-group">
-            <label for="name">Category Name</label>
-            <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                value="<%= values.name %>" 
-                required
-            >
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea 
-                id="description" 
-                name="description" 
-                rows="4" 
-                required
-            ><%= values.description %></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="image_url">Select Image</label>
-            <select id="image_url" name="image_url" required>
-                <option value="">-- Select an image --</option>
-
-                <option value="/images/melee.jpg"
-                    <%= values.image_url === "/images/melee.jpg" ? "selected" : "" %>>
-                    Melee
-                </option>
-
-                <option value="/images/magic.jpg"
-                    <%= values.image_url === "/images/magic.jpg" ? "selected" : "" %>>
-                    Magic
-                </option>
-
-                <option value="/images/armor.jpg"
-                    <%= values.image_url === "/images/armor.jpg" ? "selected" : "" %>>
-                    Armor
-                </option>
-
-                <option value="/images/consumables.jpg"
-                    <%= values.image_url === "/images/consumables.jpg" ? "selected" : "" %>>
-                    Consumables
-                </option>
-
-                <option value="/images/ranged.jpg"
-                    <%= values.image_url === "/images/ranged.jpg" ? "selected" : "" %>>
-                    Ranged
-                </option>
-
-                <option value="/images/misc.jpg"
-                    <%= values.image_url === "/images/misc.jpg" ? "selected" : "" %>>
-                    Misc
-                </option>
-            </select>
-        </div>
-
-        <% if (values.id) { %>
-            <div class="form-group">
-                <label>Admin Password</label>
-                <input type="password" name="admin_password" required>
+            <div class="form__group">
+                <label class="form__label" for="name">Category Name</label>
+                <input 
+                    class="form__input"
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    value="<%= values.name %>" 
+                    required
+                >
             </div>
-        <% } %>
 
-        <div class="form-actions">
-            <button type="submit">
-                <%= values.id ? "Update Category" : "Create Category" %>
-            </button>
-        </div>
+            <div class="form__group">
+                <label class="form__label" for="description">Description</label>
+                <textarea 
+                    class="form__textarea"
+                    id="description" 
+                    name="description" 
+                    rows="4" 
+                    required
+                ><%= values.description %></textarea>
+            </div>
 
-    </form>
+            <div class="form__group">
+                <label class="form__label" for="image_url">Select Image</label>
+                <select class="form__select" id="image_url" name="image_url" required>
+                    <option value="">-- Select an image --</option>
 
-    <a href="/">← Back</a>
+                    <option value="/images/melee.jpg" <%= values.image_url === "/images/melee.jpg" ? "selected" : "" %>>Melee</option>
+                    <option value="/images/magic.jpg" <%= values.image_url === "/images/magic.jpg" ? "selected" : "" %>>Magic</option>
+                    <option value="/images/armor.jpg" <%= values.image_url === "/images/armor.jpg" ? "selected" : "" %>>Armor</option>
+                    <option value="/images/consumables.jpg" <%= values.image_url === "/images/consumables.jpg" ? "selected" : "" %>>Consumables</option>
+                    <option value="/images/ranged.jpg" <%= values.image_url === "/images/ranged.jpg" ? "selected" : "" %>>Ranged</option>
+                    <option value="/images/misc.jpg" <%= values.image_url === "/images/misc.jpg" ? "selected" : "" %>>Misc</option>
+                </select>
+            </div>
+
+            <% if (values.id) { %>
+                <div class="form__group">
+                    <label class="form__label">Admin Password</label>
+                    <input class="form__input" type="password" name="admin_password" required>
+                </div>
+            <% } %>
+
+            <div class="form__actions">
+                <button class="btn" type="submit">
+                    <%= values.id ? "Update Category" : "Create Category" %>
+                </button>
+            </div>
+
+        </form>
+
+        <a href="/categories">← Back</a>
+    </div>
 </div>
-
 <%- include("partials/footer") %>

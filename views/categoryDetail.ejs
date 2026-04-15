@@ -1,55 +1,68 @@
 <%- include("partials/header", { title: title }) %>
 
-<div class="page-container">
-    <h1><%= category.name %></h1>
+<div class="page">
+    <div class="container">
 
-    <% if (category.description) { %>
-        <p><%= category.description %></p>
-    <% } %>
-
-    <hr>
-
-    <h2>Items in this category</h2>
-
-    <% if (items.length > 0) { %>
-        <ul class="item-list">
-            <% items.forEach(item => { %>
-                <li class="item-card">
-                    <h3><%= item.name %></h3>
-
-                    <% if (item.description) { %>
-                        <p><%= item.description %></p>
-                    <% } %>
-
-                    <% if (item.price) { %>
-                        <p><strong>Price:</strong> <%= item.price %> 🪙</p>
-                    <% } %>
-                </li>
-            <% }) %>
-        </ul>
-    <% } else { %>
-        <p>No items in this category yet.</p>
-    <% } %>
-
-    <a href="/categories/<%= category.id %>/edit">
-        Edit Category
-    </a>
-
-    <%- include("partials/error", { errors: errors || [] }) %>
-
-    <form action="/categories/<%= category.id %>/delete" method="POST">
-        <div class="form-group">
-            <label>Admin Password</label>
-            <input type="password" name="admin_password" required>
+        <div class="category__icon">
+            <img src="<%= category.image_url %>" alt="<%= category.name %>">
         </div>
 
-        <button type="submit" onclick="return confirm('Delete this category?')">
-            Delete Category
-        </button>
+        <h1 class="page__title"><%= category.name %></h1>
 
-    </form>
+        <% if (category.description) { %>
+            <p><%= category.description %></p>
+        <% } %>
 
-    <a href="/">← Back to Categories</a>
+        <hr>
+
+        <h2 class="page__subtitle">Items in this category</h2>
+
+        <% if (items.length > 0) { %>
+            <ul class="item-list grid grid--items">
+                <% items.forEach(item => { %>
+                    <li class="item-card card card--item">
+                        <div class="card__content">
+                            <h3 class="card__title"><%= item.name %></h3>
+
+                            <% if (item.description) { %>
+                                <p class="card__text"><%= item.description %></p>
+                            <% } %>
+
+                            <% if (item.price != undefined) { %>
+                                <p class="card__meta"><strong>Price:</strong> <%= item.price %> 🪙</p>
+                            <% } %>
+
+                            <% if (item.rarity) { %>
+                                <p class="card__meta"><strong>Rarity:</strong> <%= item.rarity %></p>
+                            <% } %>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No items in this category yet.</p>
+        <% } %>
+
+        <a href="/categories/<%= category.id %>/edit">
+            Edit Category
+        </a>
+
+        <%- include("partials/error", { errors: errors || [] }) %>
+
+        <form action="/categories/<%= category.id %>/delete" method="POST">
+            <div class="form__group">
+                <label class="form__label">Admin Password</label>
+                <input class="form__input" type="password" name="admin_password" required>
+            </div>
+
+            <button type="submit" onclick="return confirm('Delete this category?')">
+                Delete Category
+            </button>
+
+        </form>
+
+        <a href="/categories">← Back to Categories</a>
+    </div>
 </div>
 
 <%- include("partials/footer") %>

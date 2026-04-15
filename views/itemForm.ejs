@@ -1,74 +1,78 @@
 <%- include("partials/header", { title: title }) %>
 
-<div class="page-container">
-    <h1><%= values.id ? "Edit Item" : "New Item" %></h1>
+<div class="page">
+    <div class="container">
+        <h1 class="page__title"><%= values.id ? "Edit Item" : "New Item" %></h1>
 
-    <%- include("partials/error", { errors: errors || [] }) %>
+        <%- include("partials/error", { errors: errors || [] }) %>
 
-    <form action="<%= values.id ? `/items/${values.id}/edit` : '/items' %>" method="POST" class="form-card">
+        <form action="<%= values.id ? `/items/${values.id}/edit` : '/items' %>" method="POST" class="form">
 
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="name" value="<%= values.name %>" required>
-        </div>
-
-        <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" required><%= values.description %></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Price</label>
-            <input type="number" name="price" value="<%= values.price %>" required>
-        </div>
-
-        <div class="form-group">
-            <label>Quantity</label>
-            <input type="number" name="quantity" value="<%= values.quantity %>" required>
-        </div>
-
-        <div class="form-group">
-            <label>Rarity</label>
-            <select name="rarity" required>
-                <option value="">-- Select --</option>
-                <option value="Common" <%= values.rarity === "Common" ? "selected" : "" %>>Common</option>
-                <option value="Uncommon" <%= values.rarity === "Uncommon" ? "selected" : "" %>>Uncommon</option>
-                <option value="Rare" <%= values.rarity === "Rare" ? "selected" : "" %>>Rare</option>
-                <option value="Epic" <%= values.rarity === "Epic" ? "selected" : "" %>>Epic</option>
-                <option value="Legendary" <%= values.rarity === "Legendary" ? "selected" : "" %>>Legendary</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Categories</label>
-            <div class="checkbox-group">
-                <% categories.forEach(cat => { %>
-                    <label class="checkbox-item">
-                        <input
-                            type="checkbox"
-                            name="categories"
-                            value="<%= cat.id %>"
-                            <%= (values.categories || []).includes(String(cat.id)) ? "checked" : "" %>
-                        >
-                        <span><%= cat.name %></span>
-                    </label>
-                <% }) %>
+            <div class="form__group">
+                <label class="form__label">Name</label>
+                <input class="form__input" type="text" name="name" value="<%= values.name %>" required>
             </div>
-        </div>
 
-        <% if (values.id) { %>
-            <div class="form-group">
-                <label>Admin Password</label>
-                <input type="password" name="admin_password" required>
+            <div class="form__group">
+                <label class="form__label">Description</label>
+                <textarea class="form__textarea" name="description" required><%= values.description %></textarea>
             </div>
-        <% } %>
 
-        <button type="submit">
-            <%= values.id ? "Update Item" : "Create Item" %>
-        </button>
-    </form>
+            <div class="form__group">
+                <label class="form__label">Price</label>
+                <input class="form__input" type="number" name="price" value="<%= values.price %>" required>
+            </div>
 
-    <a href="/items">← Back</a>
+            <div class="form__group">
+                <label class="form__label">Quantity</label>
+                <input class="form__input" type="number" name="quantity" value="<%= values.quantity %>" required>
+            </div>
+
+            <div class="form__group">
+                <label class="form__label">Rarity</label>
+                <select class="form__select" name="rarity" required>
+                    <option value="">-- Select --</option>
+                    <option value="Common" <%= values.rarity === "Common" ? "selected" : "" %>>Common</option>
+                    <option value="Uncommon" <%= values.rarity === "Uncommon" ? "selected" : "" %>>Uncommon</option>
+                    <option value="Rare" <%= values.rarity === "Rare" ? "selected" : "" %>>Rare</option>
+                    <option value="Epic" <%= values.rarity === "Epic" ? "selected" : "" %>>Epic</option>
+                    <option value="Legendary" <%= values.rarity === "Legendary" ? "selected" : "" %>>Legendary</option>
+                </select>
+            </div>
+
+            <div class="form__group">
+                <label class="form__label">Categories</label>
+                <div class="checkbox-group">
+                    <% categories.forEach(cat => { %>
+                        <label class="checkbox-item">
+                            <input
+                                type="checkbox"
+                                name="categories"
+                                value="<%= cat.id %>"
+                                <%= (values.categories || []).includes(String(cat.id)) ? "checked" : "" %>
+                            >
+                            <span><%= cat.name %></span>
+                        </label>
+                    <% }) %>
+                </div>
+            </div>
+
+            <% if (values.id) { %>
+                <div class="form__group">
+                    <label class="form__label">Admin Password</label>
+                    <input class="form__input" type="password" name="admin_password" required>
+                </div>
+            <% } %>
+
+            <div class="form__actions">
+                <button class="btn" type="submit">
+                    <%= values.id ? "Update Item" : "Create Item" %>
+                </button>
+            </div>
+
+        </form>
+
+        <a href="/items">← Back</a>
+    </div>
 </div>
-
 <%- include("partials/footer") %>

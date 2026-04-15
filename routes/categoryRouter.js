@@ -22,7 +22,7 @@ const validateCategory = [
 const categoryController = require("../controllers/categoryController");
 
 // define routes
-
+categoryRouter.get("/", categoryController.listCategories);
 categoryRouter.get("/new", categoryController.getNewCategoryForm);
 categoryRouter.post("/", validateCategory, categoryController.createCategory);
 
