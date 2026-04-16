@@ -1,51 +1,52 @@
 <%- include("partials/header", { title: title }) %>
 
-<div class="page">
+<div class="page page--detail">
     <div class="container">
-        <h1 class="page__title"><%= item.name %></h1>
+        
+        <section class="detail-shell">
+            <h1 class="page__title"><%= item.name %></h1>
+            <%- include("partials/error", { errors: errors || [] }) %>
+            <div class="item-detail">
+                <% if (item.description) { %>
+                    <p><strong>Description:</strong> <%= item.description %></p>
+                <% } %>
 
-        <%- include("partials/error", { errors: errors || [] }) %>
+                <% if (item.price != undefined) { %>
+                    <p><strong>Price:</strong> <%= item.price %> 🪙</p>
+                <% } %>
 
-        <div class="item-detail">
-            <% if (item.description) { %>
-                <p><strong>Description:</strong> <%= item.description %></p>
-            <% } %>
-
-            <% if (item.price != undefined) { %>
-                <p><strong>Price:</strong> <%= item.price %> 🪙</p>
-            <% } %>
-
-            <% if (item.rarity) { %>
-                <p class="rarity-row">
-                    <strong>Rarity:</strong>
-                    <span class="rarity-badge rarity-badge--<%= item.rarity.toLowerCase() %>"><%= item.rarity %></span>
-                </p>
-            <% } %>
-        </div>
-
-        <% if (item.categories && item.categories.length > 0) { %>
-            <h2>Categories</h2>
-            <ul class="category-list">
-                <% item.categories.forEach(cat => { %>
-                    <li><%= cat %></li>
-                <% }) %>
-            </ul>
-        <% } %>
-
-        <a href="/items/<%= item.id %>/edit">Edit Item</a>
-
-        <form action="/items/<%= item.id %>/delete" method="POST">
-            <div class="form__group">
-                <label class="form__label">Admin Password</label>
-                <input class="form__input" type="password" name="admin_password" required>
+                <% if (item.rarity) { %>
+                    <p class="rarity-row">
+                        <strong>Rarity:</strong>
+                        <span class="rarity-badge rarity-badge--<%= item.rarity.toLowerCase() %>"><%= item.rarity %></span>
+                    </p>
+                <% } %>
             </div>
 
-            <button type="submit" onclick="return confirm('Delete this item?')">
-                Delete Item
-            </button>
-        </form>
+            <% if (item.categories && item.categories.length > 0) { %>
+                <h2>Categories</h2>
+                <ul class="category-list">
+                    <% item.categories.forEach(cat => { %>
+                        <li><%= cat %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
 
-        <a href="/items">← Back to Items</a>
+            <a href="/items/<%= item.id %>/edit" class="action-link">Edit Item</a>
+
+            <form action="/items/<%= item.id %>/delete" method="POST" class="form form--danger">
+                <div class="form__group">
+                    <label class="form__label">Admin Password</label>
+                    <input class="form__input" type="password" name="admin_password" required>
+                </div>
+                <div class="form__actions">
+                <button type="submit" class="btn btn--danger" onclick="return confirm('Delete this item?')">
+                    Delete Item
+                </button>
+                </div>
+            </form>
+        </section>
+        <a href="/items" class="back-link">Back to Items</a>
     </div>
 </div>
 <%- include("partials/footer") %>

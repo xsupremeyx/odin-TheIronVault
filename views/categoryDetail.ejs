@@ -1,21 +1,43 @@
 <%- include("partials/header", { title: title }) %>
 
-<div class="page">
+<div class="page page--detail">
     <div class="container">
+        <section class="detail-shell">
 
-        <div class="category__icon">
-            <img src="<%= category.image_url %>" alt="<%= category.name %>">
-        </div>
+            <div class="category__icon">
+                <img src="<%= category.image_url %>" alt="<%= category.name %>">
+            </div>
 
-        <h1 class="page__title"><%= category.name %></h1>
+            <h1 class="page__title"><%= category.name %></h1>
 
-        <% if (category.description) { %>
-            <p><%= category.description %></p>
-        <% } %>
+            <% if (category.description) { %>
+                <p><%= category.description %></p>
+            <% } %>
 
-        <hr>
+            <hr>
+            
+            <a href="/categories/<%= category.id %>/edit" class="action-link">
+                Edit Category
+            </a>
 
-        <h2 class="page__subtitle">Items in this category</h2>
+            <%- include("partials/error", { errors: errors || [] }) %>
+
+            <form action="/categories/<%= category.id %>/delete" method="POST" class="form form--danger">
+                <div class="form__group">
+                    <label class="form__label">Admin Password</label>
+                    <input class="form__input" type="password" name="admin_password" required>
+                </div>
+                <div class="form__actions">
+                <button type="submit" class="btn btn--danger" onclick="return confirm('Delete this category?')">
+                    Delete Category
+                </button>
+                </div>
+
+            </form>
+
+        </section>    
+
+        <h2 class="page__subtitle page__subtitle--items">Items in this category</h2>
 
         <% if (items.length > 0) { %>
             <ul class="item-list grid grid--items">
@@ -48,25 +70,7 @@
             <p>No items in this category yet.</p>
         <% } %>
 
-        <a href="/categories/<%= category.id %>/edit">
-            Edit Category
-        </a>
-
-        <%- include("partials/error", { errors: errors || [] }) %>
-
-        <form action="/categories/<%= category.id %>/delete" method="POST">
-            <div class="form__group">
-                <label class="form__label">Admin Password</label>
-                <input class="form__input" type="password" name="admin_password" required>
-            </div>
-
-            <button type="submit" onclick="return confirm('Delete this category?')">
-                Delete Category
-            </button>
-
-        </form>
-
-        <a href="/categories">← Back to Categories</a>
+        <a href="/categories" class="back-link">Back to Categories</a>
     </div>
 </div>
 
