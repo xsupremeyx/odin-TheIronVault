@@ -10,7 +10,7 @@ async function listItems(req, res, next){
         const search = req.query.search || "";
         const rarity = req.query.rarity || "";
         const itemsArr = await db.getAllItems(search, rarity);
-        res.render("items", { title: "Items", items: itemsArr, search, rarity });
+        res.render("items", { title: "Vault Inventory", items: itemsArr, search, rarity });
     }
     catch(err){
         next(err);

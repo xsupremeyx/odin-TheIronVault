@@ -3,7 +3,7 @@ const db = require("../db/queries");
 async function listCategories(req, res, next){
     try{
         const categoriesArr = await db.getAllCategories();
-        res.render("categories", { title: "The Iron Vault", categories: categoriesArr });
+        res.render("categories", { title: "Guild Registry", categories: categoriesArr });
     }
     catch(err){
         next(err);
@@ -25,7 +25,7 @@ async function getCategoryDetail(req, res, next){
             err.status = 404;
             throw err;
         }
-        res.render("categoryDetail", { title: "The Iron Vault", category: categoryData.category, items: categoryData.items, errors: [] });
+        res.render("categoryDetail", { title: "Wares in this Guild", category: categoryData.category, items: categoryData.items, errors: [] });
     }
     catch(err){
         next(err);
