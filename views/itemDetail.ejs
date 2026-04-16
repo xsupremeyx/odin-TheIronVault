@@ -15,6 +15,10 @@
                     <p><strong>Price:</strong> <%= item.price %> 🪙</p>
                 <% } %>
 
+                <% if (item.quantity != undefined) { %>
+                    <p><strong>Quantity:</strong> <%= item.quantity %></p>
+                <% } %>
+
                 <% if (item.rarity) { %>
                     <p class="rarity-row">
                         <strong>Rarity:</strong>

@@ -55,6 +55,10 @@
                                     <p class="card__meta"><strong>Price:</strong> <%= item.price %> 🪙</p>
                                 <% } %>
 
+                                <% if (item.quantity != undefined) { %>
+                                    <p class="card__meta"><strong>Quantity:</strong> <%= item.quantity %></p>
+                                <% } %>
+
                                 <% if (item.rarity) { %>
                                     <p class="card__meta card__meta--rarity">
                                         <strong>Rarity:</strong>

@@ -240,7 +240,9 @@ p {
 
 /* Grid system for list pages */
 
-.grid__list {
+.grid__list,
+.item-list.grid {
+    margin: 0;
     list-style: none;
     padding: 0;
     display: grid;
@@ -253,10 +255,6 @@ p {
 
 .grid--items .grid__list,
 .item-list.grid {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: var(--space-5);
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
@@ -323,6 +321,16 @@ p {
 /* Optional spacing tweak for item cards without media block */
 .card--item .card__content {
     min-height: 220px;
+}
+
+.item-card {
+    height: 100%;
+}
+
+.item-card a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 /* Rarity badge */
@@ -829,12 +837,14 @@ p {
 /* Tablet balance */
 @media (min-width: 601px) and (max-width: 960px) {
   .grid--categories .grid__list,
-  .grid--items .grid__list {
+  .grid--items .grid__list,
+  .item-list.grid{
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .page--detail .item-list.grid {
     grid-template-columns: repeat(2, minmax(260px, 320px));
+    justify-content: center;
   }
 }
 
