@@ -76,6 +76,9 @@ a {
     --container-max: 1100px;
     --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
     --transition-fast: 160ms ease;
+
+    --nav-height: 72px;
+    --content-max: 760px;
 }
 
 /* 3) Base page typography + body */
@@ -85,6 +88,8 @@ body {
     font-family: var(--font-body);
     line-height: 1.55;
     font-size: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 h1,
@@ -101,10 +106,6 @@ p {
     color: var(--text-primary);
 }
 
-.main {
-    min-height: calc(100vh - 140px);
-}
-
 
 
 /* layout primitives */
@@ -118,16 +119,6 @@ p {
     padding-block: var(--space-6);
 }
 
-.page--landing {
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-block: var(--space-6);
-    margin-top: calc(72px - var(--space-1));
-}
-
 .page__content {
     width: min(100%, 680px);
     display: flex;
@@ -138,21 +129,12 @@ p {
 
 .page__title {
     margin-bottom: var(--space-5);
-  /* my auto center */
     text-align: center;
 }
 
 .page__subtitle {
     margin-block: var(--space-5) var(--space-4);
     color: var(--text-muted);
-}
-
-
-/* Main shell */
-
-.main {
-    padding-top: 72px;
-    /* offset for sticky nav */
 }
 
 /* Sticky navigation layout only (visual polish comes later) */
@@ -168,7 +150,7 @@ p {
 .nav__container {
     width: min(100% - (var(--space-4) * 2), var(--container-max));
     margin-inline: auto;
-    min-height: 72px;
+    min-height: var(--nav-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -182,11 +164,6 @@ p {
     flex-wrap: wrap;
     justify-content: flex-end;
     overflow-x: visible;
-}
-
-.nav__links::-webkit-scrollbar {
-    display: none;
-    /* Chrome/Safari */
 }
 
 .nav__logo {
@@ -228,6 +205,9 @@ p {
 
 /* Mobile nav behavior */
 @media (max-width: 700px) {
+    :root {
+        --nav-height: 112px;
+    }
     .nav__container {
         min-height: auto;
         display: grid;
@@ -239,7 +219,6 @@ p {
     .nav__logo {
         font-size: 1rem;
         letter-spacing: 0.04em;
-        /* center the div in mobile view*/
         justify-self: center;
     }
 
@@ -384,9 +363,8 @@ p {
   flex-direction: column;
   gap: var(--space-4);
   max-width: 680px;
-  /* my auto center */
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .form__group {
@@ -459,7 +437,6 @@ p {
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-bottom: var(--space-5);
-  /* my auto center */
   margin-left: auto;
   margin-right: auto;
 }
@@ -476,35 +453,11 @@ p {
 }
 
 .form--inline input {
-    /* my change to size */
   flex: 1 1 30px;
 }
 
 .form--inline select {
-    /* my change to size */
   flex: 0 1 30px;
-}
-
-/* page details */
-.page--detail .detail-shell {
-  width: min(100%, 720px);
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.page--detail .category__icon {
-  width: min(100%, 720px);
-  margin-inline: auto;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-
-.page--detail .item-detail,
-.page--detail .category-list {
-  width: 100%;
 }
 .page--detail .category-list {
   list-style: none;
@@ -543,7 +496,6 @@ p {
   background: var(--bg-surface);
 }
 
-/* This is the key fix for the tiny image */
 .page--detail .category__icon img {
   width: 100%;
   height: clamp(180px, 28vw, 260px);
@@ -703,15 +655,6 @@ p {
   margin-bottom: var(--space-2);
 }
 
-.alert ul {
-  margin: var(--space-2) 0 0;
-  padding-left: 1.2rem;
-}
-
-.alert li {
-  color: var(--text-primary);
-}
-
 .alert--error {
   border-color: rgba(192, 57, 43, 0.55);
   background: rgba(58, 20, 18, 0.72);
@@ -747,22 +690,34 @@ p {
 }
 
 
-/* Shell correction: sticky nav is in normal flow, so no top offset needed */
-/* Shell correction */
-.main {
-  padding-top: 0;
-  min-height: 0;
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: var(--space-4);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: rgba(36, 32, 25, 0.35);
+}
+
+
+.detail-divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+  opacity: 0.9;
 }
 
 /* Landing hero attention pass */
 .page--landing {
-  min-height: 0;
+  flex: 1 1 auto;
+  min-height: 100%;
+  margin-top: 0;
   padding-block: var(--space-4);
   display: grid;
+  place-content: center;
   place-items: center;
 }
 .page--landing .page__content {
-  width: min(100%, 760px);
+  width: min(100%, var(--content-max));
   background: linear-gradient(180deg, rgba(36, 32, 25, 0.72), rgba(20, 18, 15, 0.72));
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -792,9 +747,9 @@ p {
 /* Footer alignment */
 .footer {
   border-top: 1px solid var(--border);
-  margin-top: var(--space-4);
   padding-block: var(--space-4);
   background: rgba(12, 11, 9, 0.65);
+  margin-top: 0;
 }
 
 .footer .container {
@@ -809,25 +764,12 @@ p {
 }
 
 
-/* Structural shell: stable footer behavior */
-html,
-body {
-  min-height: 100dvh;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
 .main {
   flex: 1 0 auto;
-  padding-top: 0;
   min-height: 0;
-}
-
-.footer {
-  margin-top: 0;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -837,6 +779,10 @@ body {
 @media (max-width: 600px) {
   .page {
     padding-block: var(--space-5);
+  }
+
+  .page--landing {
+    padding-block: var(--space-3);
   }
 
   .container {

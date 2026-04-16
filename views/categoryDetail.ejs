@@ -14,7 +14,7 @@
                 <p><%= category.description %></p>
             <% } %>
 
-            <hr>
+            <hr class="detail-divider">
             
             <a href="/categories/<%= category.id %>/edit" class="action-link">
                 Edit Category
@@ -67,7 +67,7 @@
                 <% }) %>
             </ul>
         <% } else { %>
-            <p>No items in this category yet.</p>
+            <p class="empty-state">No items in this category yet.</p>
         <% } %>
 
         <a href="/categories" class="back-link">Back to Categories</a>
